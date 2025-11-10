@@ -1,0 +1,50 @@
+# --- Node ---
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# --- Build Output ---
+dist/
+build/
+.cache/
+.temp/
+
+# --- Environment Variables ---
+.env
+.env.local
+.env.development
+.env.production
+.env.*.local
+
+# --- Logs ---
+logs/
+*.log
+*.log.*
+debug.log
+lerna-debug.log
+
+# --- System Files ---
+.DS_Store
+Thumbs.db
+
+# --- IDE & Editor ---
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# --- Misc ---
+*.bak
+*.tmp
+*.old
+
+# --- Netlify or Vercel ---
+.netlify/
+.vercel/
+
+# --- Coverage / Testing ---
+coverage/
+*.lcov
+jest-coverage/

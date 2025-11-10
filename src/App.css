@@ -1,0 +1,1135 @@
+/* ------------------------------------
+   🌐 FONT IMPORTS
+------------------------------------ */
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Inter:wght@400;500&display=swap");
+
+/* ------------------------------------
+   🎨 THEME VARIABLES
+------------------------------------ */
+:root {
+  --font-heading: "Sora", sans-serif;
+  --font-body: "Inter", sans-serif;
+
+  --bg-main: #f7f9fc;
+  --bg-sidebar: #ffffff;
+  --bg-card: #ffffff;
+
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+
+  --border-color: #e5e7eb;
+  --accent-primary: #2563eb;
+  --accent-secondary: #e0ebff;
+
+  --shadow-soft: 0 4px 10px rgba(0, 0, 0, 0.05);
+  --shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="dark"] {
+  --bg-main: #0f172a;
+  --bg-sidebar: #1e293b;
+  --bg-card: #334155;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --border-color: #475569;
+  --accent-secondary: #1e293b;
+}
+
+/* ------------------------------------
+   🌗 GLOBAL STYLES
+------------------------------------ */
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background: var(--bg-main);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow: hidden;
+}
+
+/* Smooth fade-in */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ------------------------------------
+   🧱 APP LAYOUT
+------------------------------------ */
+.app-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ==== SIDEBAR ==== */
+.sidebar {
+  width: 250px;
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  transition: all 0.3s ease;
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+.sidebar-header .logo-icon {
+  color: var(--accent-primary);
+  background: var(--accent-secondary);
+  padding: 6px;
+  border-radius: 10px;
+}
+
+.sidebar-title {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* ==== Navigation ==== */
+.sidebar-nav {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nav-button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.nav-button:hover {
+  background: var(--accent-secondary);
+  color: var(--accent-primary);
+}
+
+.nav-button.active {
+  background: var(--accent-primary);
+  color: #fff;
+  box-shadow: var(--shadow-soft);
+}
+
+/* ==== Theme Toggle ==== */
+.theme-toggle {
+  margin-top: auto;
+  background: var(--bg-main);
+  border: 1px solid var(--border-color);
+  border-radius: 50px;
+  padding: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4px;
+  transition: background 0.3s ease;
+}
+
+.toggle-button {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  background: transparent;
+  border-radius: 40px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
+}
+
+.toggle-button.active {
+  background: var(--accent-primary);
+  color: white;
+}
+
+/* ------------------------------------
+   🖥️ MAIN CONTENT
+------------------------------------ */
+.main-content {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 48px;
+  animation: fadeIn 0.5s ease;
+}
+
+.page-header {
+  margin-bottom: 40px;
+}
+
+.page-header h1 {
+  font-family: var(--font-heading);
+  font-size: 2.4rem;
+  margin: 0;
+  background: linear-gradient(90deg, #2563eb, #7c3aed);
+  background-clip: text; /* ✅ Standard version for compatibility */
+  -webkit-background-clip: text; /* Safari/Chrome support */
+  -webkit-text-fill-color: transparent;
+}
+
+.page-header p {
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  margin-top: 8px;
+}
+
+/* ------------------------------------
+   📦 FEATURE GRID (5 MAIN CARDS)
+------------------------------------ */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 28px;
+  margin-top: 30px;
+}
+
+.bento-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: var(--shadow-soft);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.bento-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: var(--shadow-hover);
+  border-color: transparent;
+}
+
+.bento-card h3 {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  margin: 16px 0 8px;
+  color: var(--text-primary);
+}
+
+.bento-card p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.bento-card svg {
+  color: var(--accent-primary);
+}
+
+/* ------------------------------------
+   📱 RESPONSIVE
+------------------------------------ */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 72px;
+    padding: 12px;
+  }
+
+  .sidebar-title,
+  .nav-button span {
+    display: none;
+  }
+
+  .main-content {
+    padding: 24px;
+  }
+
+  .bento-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* ------------------------------------
+   💬 CHATBOT PAGE (Modernized)
+------------------------------------ */
+.chat-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0;
+  background: var(--bg-main);
+}
+
+/* ==== Chat Messages ==== */
+.chat-messages {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  scroll-behavior: smooth;
+}
+
+.message-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  max-width: 80%;
+  animation: fadeIn 0.3s ease;
+}
+
+.message-wrapper.ai {
+  align-self: flex-start;
+}
+
+.message-wrapper.user {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+/* ==== Message Avatar ==== */
+.message-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 18px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.message-avatar.ai {
+  background: var(--accent-secondary);
+  color: var(--accent-primary);
+}
+
+.message-avatar.user {
+  background: var(--accent-primary);
+  color: white;
+}
+
+/* ==== Message Bubble ==== */
+.message-bubble {
+  padding: 14px 18px;
+  border-radius: 18px;
+  line-height: 1.5;
+  font-size: 1rem;
+  word-wrap: break-word;
+  max-width: 600px;
+  box-shadow: var(--shadow-soft);
+}
+
+.message-bubble.ai {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-top-left-radius: 6px;
+  color: var(--text-primary);
+}
+
+.message-bubble.user {
+  background: var(--accent-primary);
+  color: white;
+  border-bottom-right-radius: 6px;
+}
+
+/* Small fade animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ------------------------------------
+   🧠 CHAT INPUT AREA
+------------------------------------ */
+.chat-input-area {
+  position: sticky;
+  bottom: 0;
+  background: var(--bg-sidebar);
+  padding: 20px 24px;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.04);
+}
+
+.chat-input-area input {
+  flex-grow: 1;
+  padding: 14px 18px;
+  border-radius: 30px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.chat-input-area input:focus {
+  border-color: var(--accent-primary);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* Send Button */
+.chat-input-area button {
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.chat-input-area button:hover {
+  background: #0043d9;
+  transform: scale(1.05);
+}
+/* ------------------------------------
+   📑 DOCUMENT ANALYZER (Modern UI)
+------------------------------------ */
+
+.page-container {
+  padding: 48px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.page-header h1 {
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #2563eb, #7c3aed);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1.5rem;
+}
+
+/* --- Main Upload Card --- */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: center;
+  box-shadow: var(--shadow-soft);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* --- File Upload Label (Clickable Zone) --- */
+.card label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 2px dashed var(--border-color);
+  border-radius: 12px;
+  padding: 40px 20px;
+  color: var(--text-secondary);
+  background: rgba(0, 0, 0, 0.02);
+  transition: all 0.3s ease;
+}
+
+.card label:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  background: rgba(37, 99, 235, 0.08);
+}
+
+/* Hide default file input */
+.card input[type="file"] {
+  display: none;
+}
+
+/* --- Upload Icon --- */
+.card label svg {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 12px;
+  color: var(--accent-primary);
+  opacity: 0.85;
+}
+
+/* --- Upload Filename Display --- */
+.card label p {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+/* --- Analyze Button --- */
+.action-button {
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  border: none;
+  background: var(--accent-primary);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-top: 1.5rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.action-button:hover {
+  background: #0043d9;
+  transform: scale(1.02);
+}
+
+.action-button:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* --- Result Display --- */
+.result-display {
+  margin-top: 2rem;
+  text-align: left;
+  padding: 24px;
+  border-radius: 14px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  box-shadow: var(--shadow-soft);
+  animation: fadeIn 0.4s ease;
+}
+
+.result-display h3 {
+  color: var(--accent-primary);
+  margin-bottom: 0.75rem;
+  font-family: var(--font-heading);
+}
+
+.result-display ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* --- Loading Animation --- */
+.skeleton-loader {
+  margin-top: 1.5rem;
+  border-radius: 12px;
+  background: linear-gradient(90deg, var(--bg-card) 25%, var(--border-color) 50%, var(--bg-card) 75%);
+  background-size: 200% 100%;
+  height: 80px;
+  animation: pulse 1.4s ease infinite;
+}
+
+@keyframes pulse {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+
+/* ------------------------------------
+   ⚖️ CASE PREDICTOR (Balanced Layout)
+------------------------------------ */
+.case-predictor-page {
+  animation: fadeIn 0.4s ease;
+}
+
+.case-predictor-page h1 {
+  font-family: var(--font-heading);
+  font-size: 2.3rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #2563eb, #9333ea);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+/* --- Predictor Card --- */
+.case-predictor-page .card {
+  background: var(--bg-card);
+  border-radius: 18px;
+  padding: 36px 32px;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.case-predictor-page .card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-medium);
+}
+
+/* --- Form Layout --- */
+.case-predictor-page form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* --- Floating Inputs (Cleaner Alignment) --- */
+.case-predictor-page .form-group {
+  position: relative;
+}
+
+.case-predictor-page .form-group input,
+.case-predictor-page .form-group textarea {
+  width: 100%;
+  padding: 18px 14px 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background: var(--bg-main);
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: all 0.25s ease;
+  resize: vertical;
+  outline: none;
+}
+
+.case-predictor-page .form-group textarea {
+  min-height: 110px;
+  line-height: 1.6;
+}
+
+/* --- Floating Labels --- */
+.case-predictor-page .form-group label {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: var(--bg-main);
+  padding: 0 6px;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  pointer-events: none;
+  transition: 0.2s ease all;
+}
+
+/* Float label up on focus or filled input */
+.case-predictor-page .form-group input:focus + label,
+.case-predictor-page .form-group textarea:focus + label,
+.case-predictor-page .form-group input:not(:placeholder-shown) + label,
+.case-predictor-page .form-group textarea:not(:placeholder-shown) + label {
+  top: -9px;
+  left: 12px;
+  background: var(--bg-card);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent-primary);
+}
+
+/* --- Focus Animation --- */
+.case-predictor-page .form-group input:focus,
+.case-predictor-page .form-group textarea:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  background: var(--bg-card);
+}
+
+/* --- Predict Button --- */
+.case-predictor-page .action-button {
+  width: 100%;
+  padding: 15px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(90deg, #2563eb, #7c3aed);
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  letter-spacing: 0.4px;
+}
+
+.case-predictor-page .action-button:hover {
+  transform: translateY(-1px);
+  background: linear-gradient(90deg, #1d4ed8, #6d28d9);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+}
+
+/* --- Prediction Result --- */
+.case-predictor-page .result-display {
+  margin-top: 2rem;
+  padding: 28px;
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  box-shadow: var(--shadow-soft);
+  animation: fadeIn 0.4s ease;
+}
+
+.case-predictor-page .result-display h3 {
+  color: var(--accent-primary);
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.case-predictor-page .result-display p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* --- Fade Animation --- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* ------------------------------------
+   🕓 CASE FLOW (Modern Timeline)
+------------------------------------ */
+.caseflow-page {
+  animation: fadeIn 0.4s ease;
+}
+
+.caseflow-page h1 {
+  font-family: var(--font-heading);
+  font-size: 2.3rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #10b981, #3b82f6);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 2rem;
+}
+
+.caseflow-page .card {
+  background: var(--bg-card);
+  border-radius: 18px;
+  padding: 36px 32px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-soft);
+  transition: all 0.3s ease;
+}
+
+.caseflow-page .card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-medium);
+}
+
+/* --- Floating Text Area --- */
+.caseflow-page .form-group {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.caseflow-page textarea {
+  width: 100%;
+  padding: 18px 14px 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background: var(--bg-main);
+  color: var(--text-primary);
+  font-size: 1rem;
+  line-height: 1.6;
+  resize: vertical;
+  min-height: 120px;
+  transition: all 0.25s ease;
+}
+
+.caseflow-page label {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: var(--bg-main);
+  padding: 0 6px;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  pointer-events: none;
+  transition: 0.2s ease all;
+}
+
+/* Float label up */
+.caseflow-page textarea:focus + label,
+.caseflow-page textarea:not(:placeholder-shown) + label {
+  top: -9px;
+  left: 12px;
+  background: var(--bg-card);
+  font-size: 0.8rem;
+  color: var(--accent-primary);
+  font-weight: 600;
+}
+
+.caseflow-page textarea:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+  background: var(--bg-card);
+  outline: none;
+}
+
+/* --- Generate Button --- */
+.caseflow-page .action-button {
+  width: 100%;
+  padding: 15px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(90deg, #10b981, #3b82f6);
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.caseflow-page .action-button:hover {
+  transform: translateY(-1px);
+  background: linear-gradient(90deg, #059669, #2563eb);
+  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.25);
+}
+
+/* --- Timeline Output --- */
+.timeline-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 2rem;
+  position: relative;
+  border-left: 2px solid var(--accent-primary);
+}
+
+.timeline-list li {
+  padding-left: 2rem;
+  position: relative;
+  margin-bottom: 1.5rem;
+  animation: fadeIn 0.3s ease;
+}
+
+.timeline-list li::before {
+  content: "";
+  position: absolute;
+  left: -9px;
+  top: 6px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: var(--accent-primary);
+  border: 3px solid var(--border-color);
+}
+
+.timeline-date {
+  font-weight: 600;
+  color: var(--accent-primary);
+}
+
+.timeline-event {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+/* ------------------------------------
+   ⚔️ ARGUMENT STRATEGIST (Minimal & Clean)
+------------------------------------ */
+.arguments-page {
+  animation: fadeIn 0.4s ease;
+}
+
+.arguments-page h1 {
+  font-family: var(--font-heading);
+  font-size: 2.3rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #ec4899, #8b5cf6);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 2rem;
+}
+
+.arguments-page .card {
+  background: var(--bg-card);
+  border-radius: 18px;
+  padding: 36px 32px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-soft);
+  transition: all 0.3s ease;
+}
+
+.arguments-page .card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-medium);
+}
+
+/* --- Toggle Buttons --- */
+.argument-type-toggle {
+  display: flex;
+  background-color: var(--bg-main);
+  border-radius: 10px;
+  padding: 4px;
+  margin-bottom: 1.5rem;
+}
+
+.argument-type-toggle button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: transparent;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: all 0.25s ease;
+}
+
+.argument-type-toggle button.active {
+  background: var(--accent-primary);
+  color: white;
+  box-shadow: var(--shadow-soft);
+}
+
+/* --- Text Input --- */
+.arguments-page .form-group {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.arguments-page textarea {
+  width: 100%;
+  padding: 18px 14px 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background: var(--bg-main);
+  color: var(--text-primary);
+  font-size: 1rem;
+  line-height: 1.6;
+  resize: vertical;
+  min-height: 120px;
+  transition: all 0.25s ease;
+}
+
+.arguments-page label {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: var(--bg-main);
+  padding: 0 6px;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  pointer-events: none;
+  transition: 0.2s ease all;
+}
+
+/* Float label up */
+.arguments-page textarea:focus + label,
+.arguments-page textarea:not(:placeholder-shown) + label {
+  top: -9px;
+  left: 12px;
+  background: var(--bg-card);
+  font-size: 0.8rem;
+  color: var(--accent-primary);
+  font-weight: 600;
+}
+
+.arguments-page textarea:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.2);
+  background: var(--bg-card);
+  outline: none;
+}
+
+/* --- Generate Button --- */
+.arguments-page .action-button {
+  width: 100%;
+  padding: 15px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(90deg, #ec4899, #8b5cf6);
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.arguments-page .action-button:hover {
+  transform: translateY(-1px);
+  background: linear-gradient(90deg, #db2777, #7e22ce);
+  box-shadow: 0 8px 20px rgba(236, 72, 153, 0.25);
+}
+
+/* --- Generated Arguments --- */
+.argument-result {
+  margin-top: 2rem;
+  border-radius: 14px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  padding: 24px;
+  box-shadow: var(--shadow-soft);
+  animation: fadeIn 0.4s ease;
+}
+
+.argument-result h3 {
+  color: var(--accent-primary);
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.argument-result p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+/* === AUTH PAGE (LOGIN & SIGNUP) === */
+.auth-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #e8efff, #f5f7fb);
+  font-family: "Inter", sans-serif;
+  transition: background 0.3s ease;
+}
+
+[data-theme="dark"] .auth-wrapper {
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+}
+
+.auth-box {
+  background: var(--bg-card);
+  border-radius: 16px;
+  padding: 48px 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  animation: fadeIn 0.4s ease-out;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+[data-theme="dark"] .auth-box {
+  background: #1f2937;
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.05);
+}
+
+/* === HEADER === */
+.auth-header {
+  margin-bottom: 1.5rem;
+}
+
+.auth-header h1 {
+  font-family: "Sora", sans-serif;
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.auth-subtitle {
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+/* === FORM === */
+.auth-box form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.auth-box input,
+.auth-box select {
+  padding: 14px 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  background: var(--bg-main);
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+}
+
+.auth-box input:focus,
+.auth-box select:focus {
+  border-color: var(--accent-primary);
+  outline: none;
+  background: var(--bg-card);
+  box-shadow: 0 0 0 3px rgba(0, 82, 255, 0.15);
+}
+
+/* === BUTTON === */
+.auth-box button {
+  background: var(--accent-primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.auth-box button:hover {
+  background: #0043d9;
+}
+
+.auth-box button:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* === FOOTER === */
+.auth-footer {
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.auth-footer a {
+  color: var(--accent-primary);
+  font-weight: 600;
+  text-decoration: none;
+  margin-left: 4px;
+}
+
+.auth-footer a:hover {
+  text-decoration: underline;
+}
+
+/* === ERROR MESSAGE === */
+.error {
+  color: #ef4444;
+  font-size: 0.9rem;
+  margin-top: -0.5rem;
+}
+
+/* === BRAND LOGO === */
+.judicio-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--accent-primary);
+  margin-bottom: 1.5rem;
+  font-family: "Sora", sans-serif;
+}
+
+/* === ANIMATION === */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

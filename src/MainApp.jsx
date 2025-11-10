@@ -25,8 +25,9 @@ const MoonIcon = () => (
   <svg {...iconProps}><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>
 );
 
-// API Base URL (backend)
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://judicio-backend.onrender.com";
+const API_BASE_URL =
+  process.env.REACT_APP_API_BASE_URL?.trim() ||
+  "https://jud-back.onrender.com";
 
 // --- Skeleton Loader ---
 const SkeletonLoader = () => (

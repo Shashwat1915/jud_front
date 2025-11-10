@@ -26,7 +26,7 @@ const MoonIcon = () => (
 );
 
 // API Base URL (backend)
-const API_BASE_URL = "http://localhost:5000";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://judicio-backend.onrender.com";
 
 // --- Skeleton Loader ---
 const SkeletonLoader = () => (

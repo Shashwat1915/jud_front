@@ -510,7 +510,7 @@ const ArgumentsPage = ({ logActivity }) => {
 
 // --- Main Application ---
 export default function MainApp() {
-  const { user, logout } = useAuth();
+  const { logout } = useAuth();
   const [currentPage, setCurrentPage] = useState("dashboard");
   const [activityLog, setActivityLog] = useState([]);
   const [theme, setTheme] = useState(() => {

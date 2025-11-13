@@ -28,7 +28,7 @@ const MoonIcon = () => (
 // API Base URL (backend)
 const API_BASE_URL =
   process.env.REACT_APP_API_BASE_URL?.trim() ||
-  "https://jud-back.onrender.com";
+  "https://jud-back-1.onrender.com/";
 
 // --- Skeleton Loader ---
 const SkeletonLoader = () => (

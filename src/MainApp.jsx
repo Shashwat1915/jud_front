@@ -25,6 +25,7 @@ const MoonIcon = () => (
   <svg {...iconProps}><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>
 );
 
+// API Base URL (backend)
 const API_BASE_URL =
   process.env.REACT_APP_API_BASE_URL?.trim() ||
   "https://jud-back.onrender.com";
@@ -293,20 +294,18 @@ const CasePredictorPage = ({ logActivity }) => {
     setPrediction(null);
 
     const formData = Object.fromEntries(new FormData(formRef.current).entries());
-    const { caseType, jurisdiction, summary } = formData;
 
     try {
       const res = await fetch(`${API_BASE_URL}/predict-outcome`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ caseType, jurisdiction, summary }),
+        body: JSON.stringify(formData),
       });
 
       const data = await res.json();
       setPrediction(data);
-      logActivity({ action: `Predicted: ${caseType}`, icon: <ScaleIcon /> });
-    } catch (err) {
-      console.error("Prediction error:", err);
+      logActivity({ action: `Predicted: ${formData.caseType}`, icon: <ScaleIcon /> });
+    } catch {
       setPrediction({
         outcome: "⚠️ Could not connect to Judicio server.",
         reasoning: "",
@@ -321,51 +320,47 @@ const CasePredictorPage = ({ logActivity }) => {
     <div className="page-container">
       <div className="page-header">
         <h1>Case Predictor</h1>
-        <p>Predict case outcomes using a prefilled example or your own input.</p>
+        <p>Get AI-based predictions using a simplified and clean layout.</p>
       </div>
 
-      <div className="card">
+      <div className="card predictor-card">
         <form ref={formRef} onSubmit={handlePredict}>
-          <div className="form-group">
-            <label>Case Type</label>
-            <input
-              name="caseType"
-              defaultValue="Breach of Contract"
-              placeholder="e.g., Property dispute"
-              required
-            />
-          </div>
 
-          <div className="form-group">
-            <label>Jurisdiction</label>
-            <input
-              name="jurisdiction"
-              defaultValue="Delhi High Court, India"
-              required
-            />
-          </div>
+          <label>Case Type</label>
+          <input
+            name="caseType"
+            className="styled-input"
+            defaultValue="Breach of Contract"
+            required
+          />
 
-          <div className="form-group">
-            <label>Case Summary</label>
-            <textarea
-              name="summary"
-              rows="5"
-              required
-              defaultValue="The plaintiff alleges that the defendant failed to deliver goods as per the contract despite multiple reminders. The defendant claims force majeure due to COVID-19 lockdown."
-            />
-          </div>
+          <label>Jurisdiction</label>
+          <input
+            name="jurisdiction"
+            className="styled-input"
+            defaultValue="Delhi High Court, India"
+            required
+          />
 
-          <button className="action-button" type="submit" disabled={isLoading}>
+          <label>Case Summary</label>
+          <textarea
+            name="summary"
+            className="large-textarea"
+            defaultValue={`The plaintiff alleges that the defendant failed to deliver goods despite multiple reminders.  
+The defendant argues that COVID-19 lockdown constitutes a force majeure event.`}
+            rows="7"
+            required
+          />
+
+          <button className="action-button wide-btn" disabled={isLoading}>
             {isLoading ? "Predicting..." : "Predict Outcome"}
           </button>
         </form>
       </div>
 
-      {isLoading && <SkeletonLoader />}
-
       {prediction && (
-        <div className="card result-display">
-          <h3>Outcome Prediction</h3>
+        <div className="card result-display fade-in">
+          <h3>Prediction Result</h3>
           <p><strong>Outcome:</strong> {prediction.outcome}</p>
           <p><strong>Reasoning:</strong> {prediction.reasoning}</p>
           <p><strong>Confidence:</strong> {prediction.confidence}</p>
@@ -378,28 +373,33 @@ const CasePredictorPage = ({ logActivity }) => {
 
 // --- Case Flow Page ---
 const CaseFlowPage = ({ logActivity }) => {
-  const [input, setInput] = useState("");
   const [timeline, setTimeline] = useState([]);
+  const [input, setInput] = useState(
+`On 10 Jan 2023, a supply agreement was executed.
+Delivery was scheduled for 25 Feb 2023.
+Despite reminders, no delivery occurred.
+A legal notice was issued on 5 March 2023.
+Suit filed on 20 March 2023.`
+  );
   const [isLoading, setIsLoading] = useState(false);
 
   const handleGenerate = async () => {
     if (!input.trim()) return;
+
     setIsLoading(true);
     setTimeline([]);
 
     try {
-      const res = await fetch("http://localhost:5000/generate-timeline", {
+      const res = await fetch(`${API_BASE_URL}/generate-timeline`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ caseFacts: input }),
       });
 
-      const data = await res.json();
-      setTimeline(data);
-      logActivity({ action: "Generated Case Timeline", icon: <WaypointsIcon /> });
-    } catch (error) {
-      console.error("Timeline generation error:", error);
-      setTimeline([{ date: "Error", event: "⚠️ Could not connect to Judicio server." }]);
+      setTimeline(await res.json());
+      logActivity({ action: "Generated Timeline", icon: <WaypointsIcon /> });
+    } catch {
+      setTimeline([{ date: "Error", event: "⚠️ Could not connect to server." }]);
     } finally {
       setIsLoading(false);
     }
@@ -407,33 +407,27 @@ const CaseFlowPage = ({ logActivity }) => {
 
   return (
     <div className="page-container">
-      <div className="page-header">
-        <h1>Case Flow</h1>
-        <p>Generate a timeline of events from legal case facts.</p>
-      </div>
+      <div className="page-header"><h1>Case Flow</h1></div>
 
       <div className="card">
         <textarea
-          rows="6"
+          className="huge-textarea"
+          rows="10"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Enter case details here..."
         />
-        <button onClick={handleGenerate} className="action-button" disabled={isLoading}>
+
+        <button className="action-button wide-btn" onClick={handleGenerate}>
           {isLoading ? "Generating..." : "Generate Timeline"}
         </button>
       </div>
 
-      {isLoading && <SkeletonLoader />}
-
       {timeline.length > 0 && (
-        <div className="card result-display">
+        <div className="card result-display fade-in">
           <h3>Timeline</h3>
           <ul>
             {timeline.map((t, i) => (
-              <li key={i}>
-                <strong>{t.date}</strong>: {t.event}
-              </li>
+              <li key={i}><strong>{t.date}</strong> — {t.event}</li>
             ))}
           </ul>
         </div>
@@ -441,7 +435,6 @@ const CaseFlowPage = ({ logActivity }) => {
     </div>
   );
 };
-
 
 
 // --- Argument Strategist Page ---
@@ -457,21 +450,18 @@ const ArgumentsPage = ({ logActivity }) => {
     setResults([]);
 
     const formData = Object.fromEntries(new FormData(formRef.current).entries());
-    const { coreArgument } = formData;
 
     try {
       const res = await fetch(`${API_BASE_URL}/generate-arguments`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ coreArgument, argumentType: type }),
+        body: JSON.stringify({ coreArgument: formData.coreArgument, argumentType: type }),
       });
 
-      const data = await res.json();
-      setResults(data);
-      logActivity({ action: `Generated ${type} arguments`, icon: <SwordsIcon /> });
-    } catch (error) {
-      console.error("Argument generation error:", error);
-      setResults([{ argument: "⚠️ Could not connect to Judicio server." }]);
+      setResults(await res.json());
+      logActivity({ action: `Generated arguments (${type})`, icon: <SwordsIcon /> });
+    } catch {
+      setResults([{ argument: "⚠️ Server unreachable." }]);
     } finally {
       setIsLoading(false);
     }
@@ -479,40 +469,35 @@ const ArgumentsPage = ({ logActivity }) => {
 
   return (
     <div className="page-container">
-      <div className="page-header">
-        <h1>Argument Strategist</h1>
-        <p>Generate structured legal arguments using a default case or your own.</p>
-      </div>
+      <div className="page-header"><h1>Argument Strategist</h1></div>
 
       <div className="card">
         <form ref={formRef} onSubmit={handleGenerate}>
-          <div className="argument-type-toggle">
+          <div className="argument-toggle">
             <button type="button" onClick={() => setType("for")} className={type === "for" ? "active" : ""}>For</button>
             <button type="button" onClick={() => setType("against")} className={type === "against" ? "active" : ""}>Against</button>
           </div>
 
           <textarea
             name="coreArgument"
-            rows="5"
-            required
-            defaultValue="The defendant claims that due to the COVID-19 lockdown, the non-delivery of goods falls under the force majeure clause."
+            className="huge-textarea"
+            defaultValue={`The defendant argues that due to the COVID-19 lockdown, non-delivery falls under force majeure.`}
+            rows="8"
           />
 
-          <button className="action-button" type="submit" disabled={isLoading}>
+          <button className="action-button wide-btn" disabled={isLoading}>
             {isLoading ? "Generating..." : "Generate Arguments"}
           </button>
         </form>
       </div>
 
-      {isLoading && <SkeletonLoader />}
-
       {results.length > 0 && (
-        <div className="arguments-container">
+        <div className="arguments-container fade-in">
           {results.map((r, i) => (
             <div key={i} className="card argument-card">
               <h4>{r.argument}</h4>
-              {r.analysis && <p><strong>Analysis:</strong> {r.analysis}</p>}
-              {r.response && <p><strong>Strategy:</strong> {r.response}</p>}
+              <p><strong>Analysis:</strong> {r.analysis}</p>
+              <p><strong>Strategy:</strong> {r.response}</p>
             </div>
           ))}
         </div>
@@ -522,9 +507,10 @@ const ArgumentsPage = ({ logActivity }) => {
 };
 
 
+
 // --- Main Application ---
 export default function MainApp() {
-const { logout } = useAuth();
+  const { user, logout } = useAuth();
   const [currentPage, setCurrentPage] = useState("dashboard");
   const [activityLog, setActivityLog] = useState([]);
   const [theme, setTheme] = useState(() => {

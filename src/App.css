@@ -1133,3 +1133,252 @@ body {
     transform: translateY(0);
   }
 }
+.login-container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+}
+
+.login-card {
+  width: 360px;
+  padding: 32px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.94);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 25px rgba(0,0,0,0.15);
+}
+
+.login-card h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+/* ===== GENERAL PAGE ===== */
+.page-container {
+  padding: 20px 30px;
+}
+
+.page-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 22px;
+  margin-top: 20px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.06);
+}
+
+/* ===== TEXTAREAS ===== */
+.large-textarea,
+.huge-textarea {
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  font-size: 15px;
+  border: 1px solid #dcdcdc;
+  resize: vertical;
+  background: #fafafa;
+}
+
+.huge-textarea {
+  min-height: 180px;
+}
+
+/* ===== INPUT ===== */
+.styled-input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 15px;
+  background: #fafafa;
+}
+
+/* ===== BUTTONS ===== */
+.wide-btn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+}
+
+.fade-in {
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== ARGUMENT TOGGLE ===== */
+.argument-toggle button {
+  width: 50%;
+  padding: 10px;
+  border: none;
+  background: #e8e8e8;
+}
+
+.argument-toggle .active {
+  background: #2563eb;
+  color: white;
+}
+/* FIX FOR TEXTAREA OVERFLOW */
+.card textarea {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  resize: vertical;
+  padding: 14px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #d0d0d0;
+  background: #fff;
+}
+
+/* Ensure cards don’t overflow */
+.card {
+  width: 100%;
+  max-width: 850px;
+  margin: auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+.card input {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 12px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #d0d0d0;
+}
+.argument-type-toggle {
+  display: flex;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.argument-type-toggle button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  background: #eaeaea;
+  cursor: pointer;
+}
+
+.argument-type-toggle .active {
+  background: #2563eb;
+  color: white;
+}
+.case-input-label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.case-section {
+  margin-bottom: 22px;
+}
+
+.card {
+  border-radius: 12px;
+  background: white;
+  padding: 20px;
+  border: 1px solid #eee;
+}
+/* --- AUTH PAGE WRAPPER --- */
+.auth-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f5f7fa;
+  padding: 20px;
+}
+
+/* --- SIGNUP CARD --- */
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  padding: 35px 30px;
+  border-radius: 14px;
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  border: 1px solid #e6e9ef;
+}
+
+.auth-card h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 24px;
+}
+
+/* --- INPUT FIELDS --- */
+.auth-card input,
+.auth-card select {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  border: 1px solid #d2d6dc;
+  background: #fafafa;
+  font-size: 15px;
+  transition: border 0.2s;
+}
+
+.auth-card input:focus,
+.auth-card select:focus {
+  outline: none;
+  border-color: #2563eb;
+  background: #fff;
+}
+
+/* --- SUBMIT BUTTON --- */
+.auth-card button {
+  width: 100%;
+  padding: 12px;
+  background: #2563eb;
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+.auth-card button:hover {
+  background: #1d4ed8;
+}
+
+/* --- ERROR TEXT --- */
+.error-text {
+  color: #dc2626;
+  font-size: 14px;
+  margin-bottom: 12px;
+  text-align: left;
+}
+
+/* --- SWITCH LINK TEXT --- */
+.switch-text {
+  margin-top: 18px;
+  font-size: 14px;
+  color: #475569;
+}
+
+.switch-text a {
+  color: #2563eb;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.switch-text a:hover {
+  text-decoration: underline;
+}
